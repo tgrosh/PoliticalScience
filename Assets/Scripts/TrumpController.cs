@@ -16,6 +16,7 @@ public class TrumpController : MonoBehaviour {
     private ContactPoint2D[] contactPoints = new ContactPoint2D[100];
     private bool respawning = true;
     private bool reverseDirection;
+    private bool moveOffScreen;
 
     // Use this for initialization
     void Start () {
@@ -48,7 +49,7 @@ public class TrumpController : MonoBehaviour {
 
         if (respawning)
         {
-            body.MovePosition(FindSpawnPoint().transform.position);
+            body.position = FindSpawnPoint().transform.position;
             body.velocity = Vector2.zero;
             respawning = false;
         }
@@ -57,6 +58,12 @@ public class TrumpController : MonoBehaviour {
         {
             body.velocity = new Vector2(-body.velocity.x, -body.velocity.y);
             reverseDirection = false;
+        }
+
+        if (moveOffScreen)
+        {
+            body.position = new Vector2(0, 10000f);
+            moveOffScreen = false;
         }
     }
 
@@ -83,8 +90,6 @@ public class TrumpController : MonoBehaviour {
             {
                 reverseDirection = true;
             }
-
-            
         }
     }    
 
@@ -112,7 +117,7 @@ public class TrumpController : MonoBehaviour {
     
     private void KillSelf()
     {
-        body.MovePosition(new Vector2(0, 10000f));
+        moveOffScreen = true;
         StartCoroutine(WaitAndRespawn(respawnTime));
     }
 

@@ -6,10 +6,17 @@ public class ScreenLimiter : MonoBehaviour {
     public SpriteRenderer renderTarget;
     public Rigidbody2D body;
 
-	void FixedUpdate () {
-        if (!renderTarget.isVisible)
+    private bool isReady = false;
+    
+    void FixedUpdate () {
+        if (isReady && !renderTarget.isVisible)
         {
-            body.MovePosition(new Vector2((transform.position.x) * -.99f, transform.position.y));
+            body.position = new Vector2((transform.position.x) * -.99f, transform.position.y);
+        }
+
+        if (!isReady && renderTarget.isVisible)
+        {
+            isReady = true;
         }
     }
 }

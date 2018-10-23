@@ -56,11 +56,6 @@ public class EnemyController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.CompareTag("DeathZone"))
-        {
-            KillSelf();
-        }
-
         string myCollider = collision.otherCollider.gameObject.name;
         string theirCollider = collision.collider.gameObject.name;
 
