@@ -150,7 +150,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 5a38597f4c31e634e9acc6d514b1ca45, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &61232954306671768
 BoxCollider2D:
@@ -213,13 +213,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9156cecbc95327043a95d0af2b9ad289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyingHeight: 25
-  liftForce: 3
+  flyingHeight: 25.22
+  liftForce: 2
   maxFlySpeed: 500
   flySpeed: 350
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  flyHeightChangeChance: 0.25
+  flyHeightTargets: []
+  currentFlyHeightIndex: 0
+  flyHeightDeadZone: 0.5
 --- !u!114 &114964100058499740
 MonoBehaviour:
   m_ObjectHideFlags: 1

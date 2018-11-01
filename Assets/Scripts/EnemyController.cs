@@ -8,35 +8,45 @@ public class EnemyController : MonoBehaviour {
     public float maxFlySpeed;
     public float flySpeed;
     public LayerMask layerMask;
+    [Range(0,1)]
+    public float flyHeightChangeChance;
+    public Transform[] flyHeightTargets;
+    public int currentFlyHeightIndex;
+    public float flyHeightDeadZone;
 
     Rigidbody2D body;
     bool reverseDirection = false;
+    private float transitionTimer;
 
-	// Use this for initialization
-	void Start () {
-        body = GetComponent<Rigidbody2D>();
+    float liftTime = 0f;
+
+    // Use this for initialization
+    void Start () {
+        body = GetComponent<Rigidbody2D>();        
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 100f, layerMask);
-        if (hit.collider != null)
+
+    private void Update()
+    {
+        transitionTimer += Time.deltaTime;
+    }
+
+    // Update is called once per frame
+    void FixedUpdate ()
+    {
+        flyingHeight = flyHeightTargets[currentFlyHeightIndex].transform.position.y;
+        float heightError = flyingHeight - body.position.y;
+        
+        if (heightError > flyHeightDeadZone)
         {
-            float distance = Mathf.Abs(hit.point.y - transform.position.y);
-            float heightError = flyingHeight - distance;
-            float force = liftForce * heightError - body.velocity.y;
-            body.AddForce(Vector3.up * force);
-            Fly(flySpeed * Time.deltaTime, maxFlySpeed * Time.deltaTime);
-        }
-                
-        if (body.velocity.x > 0)
+            body.AddForce(Vector3.up * liftForce);
+        } else if (heightError < flyHeightDeadZone)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            body.AddForce(Vector3.up * liftForce * .5f);
         }
-        else if (body.velocity.x < 0)
-        {
-            transform.localScale = Vector3.one;
-        }
+
+        Fly(flySpeed * Time.deltaTime, maxFlySpeed * Time.deltaTime);
+
+        LookInFlyDirection();
 
         if (reverseDirection)
         {
@@ -46,12 +56,74 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
+    private void LookInFlyDirection()
+    {
+        if (body.velocity.x > 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (body.velocity.x < 0)
+        {
+            transform.localScale = Vector3.one;
+        }
+    }
+
     void Fly(float speed, float maxSpeed)
     {
         if (Mathf.Abs(body.velocity.x) < maxSpeed)
         {
             body.AddForce(new Vector2(speed, 0), ForceMode2D.Force);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject other = collision.gameObject;
+
+        if (transitionTimer > 3f &&
+            (other.CompareTag("FlyHeightTransitionZoneRight") && body.velocity.x < 0 ||
+            other.CompareTag("FlyHeightTransitionZoneLeft") && body.velocity.x > 0))
+        {
+            if (Random.value >= ( 1 - flyHeightChangeChance))
+            {
+                currentFlyHeightIndex = GetRandomFlyHeightIndex();
+                transitionTimer = 0;
+            }            
+        }
+    }
+    
+    private int GetRandomFlyHeightIndex()
+    {
+        if (flyHeightTargets.Length == 0)
+        {
+            throw new System.Exception("No Fly Height Targets");
+        }
+        if (flyHeightTargets.Length == 1)
+        {
+            return 0;
+        } 
+
+        int flyHeightIndex = currentFlyHeightIndex;
+
+        if (flyHeightIndex == 0)
+        {
+            flyHeightIndex++;
+        } else if (flyHeightIndex == flyHeightTargets.Length - 1)
+        {
+            flyHeightIndex--;
+        } else
+        {
+            if (Random.value < 0.5f)
+            {
+                flyHeightIndex--;
+            }
+            else
+            {
+                flyHeightIndex++;
+            }
+        }
+        
+        return flyHeightIndex;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

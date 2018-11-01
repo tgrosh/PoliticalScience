@@ -6,6 +6,8 @@ TagManager:
   tags:
   - DeathZone
   - Enemy
+  - FlyHeightTransitionZoneLeft
+  - FlyHeightTransitionZoneRight
   layers:
   - Default
   - TransparentFX
