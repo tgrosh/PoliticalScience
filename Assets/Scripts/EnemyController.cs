@@ -1,24 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
-    public float flyingHeight;
-    public float liftForce;
     public float maxFlySpeed;
     public float flySpeed;
+    public float flapForce;
+    public float flapDescentScale = .25f;
+    public float flapsPerSecond;
     public LayerMask layerMask;
     [Range(0,1)]
     public float flyHeightChangeChance;
+    public float flyHeightDeadZone;
     public Transform[] flyHeightTargets;
     public int currentFlyHeightIndex;
-    public float flyHeightDeadZone;
 
     Rigidbody2D body;
     bool reverseDirection = false;
     private float transitionTimer;
-
-    float liftTime = 0f;
+    private float flapTimer;
+    private float currentFlyHeight;
 
     // Use this for initialization
     void Start () {
@@ -28,20 +27,21 @@ public class EnemyController : MonoBehaviour {
     private void Update()
     {
         transitionTimer += Time.deltaTime;
+        flapTimer += Time.deltaTime;
     }
 
     // Update is called once per frame
     void FixedUpdate ()
     {
-        flyingHeight = flyHeightTargets[currentFlyHeightIndex].transform.position.y;
-        float heightError = flyingHeight - body.position.y;
+        currentFlyHeight = flyHeightTargets[currentFlyHeightIndex].transform.position.y;
+        float heightError = currentFlyHeight - body.position.y;
         
         if (heightError > flyHeightDeadZone)
         {
-            body.AddForce(Vector3.up * liftForce);
+            Flap(flapForce);
         } else if (heightError < flyHeightDeadZone)
         {
-            body.AddForce(Vector3.up * liftForce * .5f);
+            Flap(flapForce * flapDescentScale);
         }
 
         Fly(flySpeed * Time.deltaTime, maxFlySpeed * Time.deltaTime);
@@ -65,6 +65,18 @@ public class EnemyController : MonoBehaviour {
         else if (body.velocity.x < 0)
         {
             transform.localScale = Vector3.one;
+        }
+    }
+
+    private void Flap(float flapForce)
+    {
+        float randomFudge = ((Random.value + 1.5f) / 2f); // 0.75 .. 1.25
+        float flapChance = (1 / flapsPerSecond) * randomFudge;
+
+        if (flapTimer > flapChance)
+        {
+            body.AddForce(Vector2.up * flapForce, ForceMode2D.Impulse);
+            flapTimer = 0;
         }
     }
 

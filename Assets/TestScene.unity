@@ -356,19 +356,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1696212762514320, guid: 5d75ca5a894501747a5e9b7cf3d3d19b, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1696212762514320, guid: 5d75ca5a894501747a5e9b7cf3d3d19b, type: 2}
-      propertyPath: m_Name
-      value: Enemy (0)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114964100058499740, guid: 5d75ca5a894501747a5e9b7cf3d3d19b,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114525605119804136, guid: 5d75ca5a894501747a5e9b7cf3d3d19b,
         type: 2}
       propertyPath: flyHeightTargets.Array.data[0]
@@ -384,25 +371,9 @@ Prefab:
       propertyPath: flyHeightTargets.Array.data[2]
       value: 
       objectReference: {fileID: 1781791488}
-    - target: {fileID: 114525605119804136, guid: 5d75ca5a894501747a5e9b7cf3d3d19b,
-        type: 2}
-      propertyPath: currentFlyHeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114525605119804136, guid: 5d75ca5a894501747a5e9b7cf3d3d19b,
-        type: 2}
-      propertyPath: currentFlyHeightIndex
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114525605119804136, guid: 5d75ca5a894501747a5e9b7cf3d3d19b,
-        type: 2}
-      propertyPath: flySpeed
-      value: -350
-      objectReference: {fileID: 0}
-    - target: {fileID: 114525605119804136, guid: 5d75ca5a894501747a5e9b7cf3d3d19b,
-        type: 2}
-      propertyPath: liftForce
-      value: 30
+    - target: {fileID: 1696212762514320, guid: 5d75ca5a894501747a5e9b7cf3d3d19b, type: 2}
+      propertyPath: m_Name
+      value: Enemy (0)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d75ca5a894501747a5e9b7cf3d3d19b, type: 2}

@@ -109,8 +109,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1696212762514320}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.84307, y: 15.191799, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -23.77, y: 2.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4457897154874370}
@@ -214,16 +214,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flyingHeight: 25.22
-  liftForce: 2
   maxFlySpeed: 500
-  flySpeed: 350
+  flySpeed: -350
+  flapForce: 10
+  flapDescentScale: 0.25
+  flapsPerSecond: 3
   layerMask:
     serializedVersion: 2
     m_Bits: 256
   flyHeightChangeChance: 0.25
-  flyHeightTargets: []
-  currentFlyHeightIndex: 0
+  currentFlyHeightIndex: 1
   flyHeightDeadZone: 0.5
+  flyHeightTargets: []
 --- !u!114 &114964100058499740
 MonoBehaviour:
   m_ObjectHideFlags: 1
