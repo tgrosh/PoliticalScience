@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - FlyHeightTransitionZoneLeft
   - FlyHeightTransitionZoneRight
+  - FlyHeightTransitionZone
+  - CharacterBody
   layers:
   - Default
   - TransparentFX

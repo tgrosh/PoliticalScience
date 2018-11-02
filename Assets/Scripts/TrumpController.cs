@@ -10,10 +10,12 @@ public class TrumpController : MonoBehaviour {
     public float walkSpeed;
     public SpawnPoint[] spawnPoints;
     public float respawnTime;
+    public Animator animator;
+    public ParticleSystem flapParticles;
+    public AudioSource flapAudio;
 
     private Rigidbody2D body;
     private float currentSpeed = 0;
-    private ContactPoint2D[] contactPoints = new ContactPoint2D[100];
     private bool respawning = true;
     private bool reverseDirection;
     private bool moveOffScreen;
@@ -28,24 +30,19 @@ public class TrumpController : MonoBehaviour {
         //flying
 		if (Input.GetKeyDown(KeyCode.LeftControl) && body.velocity.y < maxFlySpeed)
         {
-            body.AddForce(new Vector2(0, flapForce), ForceMode2D.Impulse);
+            animator.SetBool("isFlying", true);
+            Flap();
             HandleMovement(flySpeed, maxFlySpeed);
         }
-        
+
         //walking
-        if (body.GetContacts(contactPoints) > 0)
+        if (IsWalking())
         {
+            animator.SetBool("isFlying", false);
             HandleMovement(walkSpeed * Time.deltaTime, maxWalkSpeed * Time.deltaTime);
         }
 
-        //flipping based on direction
-        if (body.velocity.x > 0)
-        {
-            transform.localScale = new Vector3(-1,1,1);
-        } else if (body.velocity.x < 0)
-        {
-            transform.localScale = Vector3.one;
-        }
+        LookInFlyDirection();        
 
         if (respawning)
         {
@@ -65,6 +62,41 @@ public class TrumpController : MonoBehaviour {
             body.position = new Vector2(0, 10000f);
             moveOffScreen = false;
         }
+    }
+
+    private void LookInFlyDirection()
+    {
+        if (body.velocity.x < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (body.velocity.x > 0)
+        {
+            transform.localScale = Vector3.one;
+        }
+    }
+
+    private void Flap()
+    {
+        flapAudio.Stop();
+        flapAudio.Play();
+        flapParticles.Play();
+        body.AddForce(new Vector2(0, flapForce), ForceMode2D.Impulse);
+    }
+
+    private bool IsWalking()
+    {
+        ContactPoint2D[] contactPoints = new ContactPoint2D[100];
+        body.GetContacts(contactPoints);
+
+        foreach (ContactPoint2D contactPoint in contactPoints)
+        {
+            if (contactPoint.otherCollider != null && contactPoint.otherCollider.gameObject.CompareTag("CharacterBody")) {
+                return true && body.velocity.y < .05f;
+            }
+        }
+
+        return false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
