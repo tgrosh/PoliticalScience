@@ -91,7 +91,7 @@ public class TrumpController : MonoBehaviour {
 
         foreach (ContactPoint2D contactPoint in contactPoints)
         {
-            if (contactPoint.otherCollider != null && contactPoint.otherCollider.gameObject.CompareTag("CharacterBody")) {
+            if (contactPoint.otherCollider != null && contactPoint.otherCollider.gameObject.CompareTag("Body")) {
                 return true && body.velocity.y < .05f;
             }
         }

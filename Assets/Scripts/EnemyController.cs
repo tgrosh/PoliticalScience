@@ -141,7 +141,7 @@ public class EnemyController : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         string myCollider = collision.otherCollider.gameObject.name;
-        string theirCollider = collision.collider.gameObject.name;
+        string theirCollider = collision.collider.gameObject.tag;
         bool collidedWithEnemy = collision.rigidbody.gameObject.CompareTag("Enemy");
         
         if (myCollider == "Head" && theirCollider == "Body" && !collidedWithEnemy)

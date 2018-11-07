@@ -319,11 +319,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 151756311}
     m_Modifications:
-    - target: {fileID: 114525605119804136, guid: 5d75ca5a894501747a5e9b7cf3d3d19b,
-        type: 2}
-      propertyPath: flyHeightTargets.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4698127668524852, guid: 5d75ca5a894501747a5e9b7cf3d3d19b, type: 2}
       propertyPath: m_LocalPosition.x
       value: -23.77
@@ -7513,7 +7508,7 @@ GameObject:
   - component: {fileID: 1862556522}
   m_Layer: 0
   m_Name: BodyRoot
-  m_TagString: CharacterBody
+  m_TagString: Body
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -9,7 +9,7 @@ TagManager:
   - FlyHeightTransitionZoneLeft
   - FlyHeightTransitionZoneRight
   - FlyHeightTransitionZone
-  - CharacterBody
+  - Body
   layers:
   - Default
   - TransparentFX
