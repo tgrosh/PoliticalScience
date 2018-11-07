@@ -151,13 +151,11 @@ public class EnemyController : MonoBehaviour {
         {
             Vector2 collisionPoint = transform.InverseTransformPoint(collision.contacts[0].point.x, collision.contacts[0].point.y, 0);
 
-            if (theirCollider == "Head" || theirCollider == "Body")
+            if (collisionPoint.x < 0 && ( myCollider == "Head" || theirCollider == "Head"))
             {
-                if (collisionPoint.x < 0)
-                {
-                    reverseDirection = true;
-                }
+                reverseDirection = true;
             }
+            
         }        
     }
     
