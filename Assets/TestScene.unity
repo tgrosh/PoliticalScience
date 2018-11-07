@@ -5867,7 +5867,7 @@ Prefab:
     - target: {fileID: 114525605119804136, guid: 5d75ca5a894501747a5e9b7cf3d3d19b,
         type: 2}
       propertyPath: flySpeed
-      value: -350
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 114525605119804136, guid: 5d75ca5a894501747a5e9b7cf3d3d19b,
         type: 2}
@@ -5886,7 +5886,12 @@ Prefab:
       objectReference: {fileID: 1781791488}
     - target: {fileID: 1696212762514320, guid: 5d75ca5a894501747a5e9b7cf3d3d19b, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114525605119804136, guid: 5d75ca5a894501747a5e9b7cf3d3d19b,
+        type: 2}
+      propertyPath: currentFlyHeightIndex
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d75ca5a894501747a5e9b7cf3d3d19b, type: 2}
@@ -5991,7 +5996,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1696212762514320, guid: 5d75ca5a894501747a5e9b7cf3d3d19b, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114964100058499740, guid: 5d75ca5a894501747a5e9b7cf3d3d19b,
         type: 2}

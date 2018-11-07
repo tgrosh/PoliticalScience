@@ -142,21 +142,23 @@ public class EnemyController : MonoBehaviour {
     {
         string myCollider = collision.otherCollider.gameObject.name;
         string theirCollider = collision.collider.gameObject.name;
-
-        if (myCollider == "Head" && theirCollider == "Body")
+        bool collidedWithEnemy = collision.rigidbody.gameObject.CompareTag("Enemy");
+        
+        if (myCollider == "Head" && theirCollider == "Body" && !collidedWithEnemy)
         {
             KillSelf();
-        }
-
-        Vector2 collisionPoint = transform.InverseTransformPoint(collision.contacts[0].point.x, collision.contacts[0].point.y,0);
-        
-        if (theirCollider == "Head" || theirCollider == "Body")
+        } else
         {
-            if (collisionPoint.x < 0)
+            Vector2 collisionPoint = transform.InverseTransformPoint(collision.contacts[0].point.x, collision.contacts[0].point.y, 0);
+
+            if (theirCollider == "Head" || theirCollider == "Body")
             {
-                reverseDirection = true;                
+                if (collisionPoint.x < 0)
+                {
+                    reverseDirection = true;
+                }
             }
-        }
+        }        
     }
     
     private void KillSelf()
