@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour {
     public float flyHeightDeadZone;
     public Transform[] flyHeightTargets;
     public int currentFlyHeightIndex;
+    public int scoreValue;
 
     Rigidbody2D body;
     bool reverseDirection = false;
@@ -162,5 +163,7 @@ public class EnemyController : MonoBehaviour {
     private void KillSelf()
     {
         Destroy(gameObject);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<ScoreKeeper>().AddScore(scoreValue);
     }
 }

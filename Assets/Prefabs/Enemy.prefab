@@ -228,6 +228,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentFlyHeightIndex: 1
+  scoreValue: 10
 --- !u!114 &114964100058499740
 MonoBehaviour:
   m_ObjectHideFlags: 1
