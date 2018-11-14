@@ -13,6 +13,7 @@ public class TrumpController : MonoBehaviour {
     public Animator animator;
     public ParticleSystem flapParticles;
     public AudioSource flapAudio;
+    public int lives;
 
     private Rigidbody2D body;
     private float currentSpeed = 0;
@@ -23,6 +24,7 @@ public class TrumpController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         body = GetComponent<Rigidbody2D>();
+        UI.instance.UpdateLives(lives);
     }
 	
 	// Update is called once per frame
@@ -150,13 +152,22 @@ public class TrumpController : MonoBehaviour {
     private void KillSelf()
     {
         moveOffScreen = true;
-        StartCoroutine(WaitAndRespawn(respawnTime));
+        if (lives > 0)
+        {
+            StartCoroutine(WaitAndRespawn(respawnTime));
+        } else
+        {
+            UI.instance.ShowGameOver();
+            Destroy(gameObject);
+        }
     }
 
     IEnumerator WaitAndRespawn(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        Respawn();        
+        Respawn();
+        lives--;
+        UI.instance.UpdateLives(lives);
     }
 
     void Respawn()
